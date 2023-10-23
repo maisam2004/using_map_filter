@@ -82,9 +82,9 @@ const people = [
   },
 ];
 const age20 = people.filter(person => person.age > 20)
-console.log(age20);
+//console.log(age20);
 const paul = people.filter(p => p.name === 'Paul');
-console.log(paul);
+//console.log(paul);
 
 // Complex Filtering
 const students2 = [
@@ -193,4 +193,147 @@ const resultsArray = students3.map(studentResult);
 const topMaths = students3.filter(student => student.results.maths >= 90);
 console.log(topMaths);
 
+//------- reduce method ----
+const numbers = [1,2,3,4,5];
 
+const sum = numbers.reduce((acc,current)=> {
+  // console.log(acc);
+ /// console.log(current,"current");
+   
+  //console.log(acc + current ,'plus');
+  return acc + current;
+
+
+},5);
+//console.log(sum);
+/*using the initial value is a good way to add  more to a previously calculated subtotal,  
+add more items into an existing array, or inject  additional properties into an existing object.  */
+
+const develop = [
+  {
+    name: 'Mark',
+    profession: 'Developer',
+    yearEx : 5
+  },
+  {
+    name: 'Ariel',
+    profession: 'Developer',
+    yearEx:7
+  },
+  {
+    name: 'Jason',
+    profession: 'Designer',
+    yearEx:1
+  },
+  {
+    name: 'Kelly',
+    profession: 'Designer',
+    yearEx:3
+  },{
+    name: 'Johny',
+    profession: 'Manager',
+    yearEx:8
+  },
+
+];
+//grouping by a property and totalling
+//{Designer:4,Developer:12}
+let experianceByProfesseion = develop.reduce((acc,curr) => {
+  let key = curr.profession;
+  if(!acc[key]){
+    acc[key]=curr.yearEx;
+  }else{
+    acc[key] += curr.yearEx;
+  }
+
+  return acc;
+},{})
+
+let arrayOfEmployee = develop.reduce((acc, cu) => {
+  let key = cu.profession;
+  acc[key] = (acc[key] || []).concat(cu.name);
+  return acc;
+}, {});
+
+console.log(arrayOfEmployee);
+
+
+
+//console.log(experianceByProfesseion);
+
+/* 
+let arrayOfEmployees = develop.reduce((acc, cu) => {
+  let key = cu.profession; // Add 'let' to declare key
+  if (!acc[key]) {
+    acc[key] = [cu.name];
+  } else {
+    acc[key].push(cu.name);
+  }
+  return acc;
+}, {});
+
+console.log(arrayOfEmployees);
+
+ */
+let arrayOfEmployees = develop.reduce((acc, cu) => {
+  
+  let key = cu.profession;
+  if (!acc[key]) {
+    acc[key] = [cu.name];
+  }else{
+    acc[key].push(cu.name);
+  }
+  return acc;
+},{})
+//console.log(arrayOfEmployees);
+
+
+/* const devEx = develop.filter(dev => dev.yearEx > 0 ).map(dev => dev.yearEx);
+const deve = develop.map(dev => dev.yearEx).reduce((acc,current)=> acc + current);
+console.log(deve,'map deve');
+const newd = develop.reduce((ac,cu) => ac + cu.yearEx,0);
+console.log(newd);
+//console.log(deve.reduce((acc,current)=> acc + current));
+let totalEx =devEx.reduce((acc,curr)=> acc+curr , 0);
+console.log(totalEx,' ->> total experiances'); */
+
+let pupils = [
+  {
+      name: 'John',
+      subjects: ['maths', 'english', 'cad'],
+      teacher: {maths: 'Harry', english: 'Joan', cad: 'Paul'},
+      results: {maths: 90, english: 75, cad: 87},
+  },
+  {
+      name: 'Emily',
+      subjects: ['science', 'english', 'art'],
+      teacher: {science: 'Iris', english: 'Joan', art: 'Simon'},
+      results: {science: 93, english: 73, art: 95},
+  },
+  {
+      name: 'Adam',
+      subjects: ['science', 'maths', 'art'],
+      teacher: {science: 'Iris', maths: 'Harry', art: 'Simon'},
+      results: {science: 93, english: 88, maths: 97, art: 95},
+  },
+  {
+      name: 'Fran',
+      subjects: ['science', 'english', 'art'],
+      teacher: {science: 'Iris', english: 'Joan', art: 'Simon'},
+      results: {science: 93, english: 87, art: 95},
+  }
+];
+
+console.log(pupils[0].name);
+console.log(pupils[0].results.english);
+
+let biggest = pupils.reduce((acc , cur) => {
+  acc = acc.max > cur.results.english ? acc: {name:cur.name, max:cur.results.english};
+  /* if( acc.max < cur.results.english){
+    acc.max = cur.results.english;
+    acc.name = cur.name;
+  } */
+  return acc;
+  
+},{name:'',max:0})
+console.log(biggest);
